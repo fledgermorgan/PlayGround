@@ -1,0 +1,77 @@
+/* AKM platform catalog. Specs approximate. */
+
+export const AKM = {
+  id: 'akm',
+  name: 'AKM',
+  family: 'AK-pattern / Long-stroke piston',
+  tagline: 'Stamped steel, heavy hitter.',
+  accent: '#e0a24a',
+  baseWeight: 2680,
+  baseOAL: 31.0,
+  baseCost: 520,
+  baseReliability: 86,
+  caliber: '7.62×39mm',
+  caliberKey: '7.62x39',
+  slotOrder: ['muzzle', 'handguard', 'stock', 'grip', 'trigger', 'optic', 'magazine'],
+  slots: {
+    muzzle: { label: 'Muzzle Device', short: 'Muzzle', hint: 'Brake, hider or suppressor' },
+    handguard: { label: 'Handguard', short: 'Rail', hint: 'Wood, polymer or alloy' },
+    stock: { label: 'Stock', short: 'Stock', hint: 'Fixed or folding' },
+    grip: { label: 'Pistol Grip', short: 'Grip', hint: 'Ergonomics & control' },
+    trigger: { label: 'Trigger', short: 'Trigger', hint: 'Two-stage or tuned' },
+    optic: { label: 'Optic & Mount', short: 'Optic', hint: 'Side-rail mounting' },
+    magazine: { label: 'Magazine', short: 'Mag', hint: 'Capacity & weight' },
+  },
+  defaultParts: {
+    muzzle: 'ak-slant', handguard: 'ak-wood-hg', stock: 'ak-wood-stock', grip: 'ak-bakelite',
+    trigger: 'ak-mil', optic: 'ak-iron', magazine: 'ak-surplus',
+  },
+  parts: {
+    muzzle: [
+      { id: 'ak-slant', brand: 'Izhmash', name: 'Slant Brake', weight: 70, price: 20, length: 2.1, thread: '14x1LH', calibers: ['7.62x39'], recoil: 8, flash: 35, tags: ['Standard', 'Classic'], desc: 'The iconic angled AKM brake that pushes the muzzle down and left.', scores: { reliability: 1 } },
+      { id: 'ak-fighter', brand: 'Definitive Arms', name: 'Fighter Brake', weight: 100, price: 95, length: 2.6, thread: '14x1LH', calibers: ['7.62x39'], recoil: 32, flash: 55, tags: ['Brake', 'US-made'], desc: 'A US-made competition brake with large side ports and a compact body.', scores: { reliability: 1 } },
+      { id: 'ak-rrd4c', brand: 'JMac Customs', name: 'RRD-4C Brake', weight: 110, price: 110, length: 2.8, thread: '14x1LH', calibers: ['7.62x39'], recoil: 38, flash: 50, tags: ['Brake', 'Concussion'], desc: 'A four-port brake that tames 7.62×39 recoil at the cost of blast.', scores: { reliability: 1 } },
+      { id: 'ak-wolverine', brand: 'Dead Air', name: 'Wolverine PBS-1', weight: 640, price: 1000, length: 6.9, thread: '14x1LH', calibers: ['7.62x39'], recoil: 23, flash: 95, suppression: 32, nfa: true, tags: ['Suppressor', 'NFA'], desc: 'A tapered AK-specific suppressor with an adjustable gas system in mind.', scores: { reliability: -1 } },
+      { id: 'ak-strela', brand: 'Strela', name: 'Flash Hider', weight: 85, price: 55, length: 2.5, thread: '14x1LH', calibers: ['7.62x39'], recoil: 10, flash: 85, tags: ['Flash hider'], desc: 'A multi-prong hider that cuts the AK fireball without much extra weight.', scores: { reliability: 1 } },
+    ],
+    handguard: [
+      { id: 'ak-wood-hg', brand: 'Izhmash', name: 'Laminate Wood Set', weight: 330, price: 65, mount: 'None', material: 'Birch laminate', tags: ['Classic', 'Warm'], desc: 'Original-pattern laminated wood upper and lower handguards.', scores: { reliability: 1, ergo: 4 } },
+      { id: 'ak-zhukov-hg', brand: 'Magpul', name: 'Zhukov-U Handguard', weight: 340, price: 100, mount: 'M-LOK', material: 'Polymer', tags: ['M-LOK', 'Modern'], desc: 'A modern polymer handguard with M-LOK slots and a heat shield.', scores: { reliability: 2, ergo: 5 } },
+      { id: 'ak-slr-115', brand: 'SLR Rifleworks', name: 'Ion 11.5" Handguard', weight: 300, price: 210, mount: 'M-LOK', material: '7075-T6', tags: ['M-LOK', 'Light'], desc: 'A slim free-float style alloy rail with full-length M-LOK slots.', scores: { reliability: 2, ergo: 6 } },
+      { id: 'ak-tdi', brand: 'TDI Arms', name: 'ZAK-47 Rail', weight: 320, price: 155, mount: 'M-LOK', material: 'Aluminum', tags: ['M-LOK', 'Value'], desc: 'A drop-in aluminum rail with M-LOK and a top optic-ready section.', scores: { reliability: 2, ergo: 4 } },
+      { id: 'ak-zenitco-b10', brand: 'Zenitco', name: 'B-10M Rail', weight: 360, price: 300, mount: 'Picatinny', material: 'Aluminum', tags: ['Picatinny', 'Duty'], desc: 'A rugged Russian-pattern rail with a rigid Picatinny top cover.', scores: { reliability: 3, ergo: 4 } },
+    ],
+    stock: [
+      { id: 'ak-wood-stock', brand: 'Izhmash', name: 'Fixed Wood Stock', weight: 420, price: 85, lengthAdd: 1.5, recoil: 8, ergo: 7, type: 'Fixed', tags: ['Classic', 'Fixed'], desc: 'A solid laminated wood stock with a steel buttplate.', scores: { reliability: 2 } },
+      { id: 'ak-zhukov-stock', brand: 'Magpul', name: 'Zhukov-S Stock', weight: 480, price: 100, lengthAdd: 1.8, recoil: 6, ergo: 9, type: 'Folding', tags: ['Folding', 'Adjustable'], desc: 'A side-folding polymer stock with adjustable length of pull.', scores: { reliability: 1 } },
+      { id: 'ak-pt1', brand: 'Zenitco', name: 'PT-1 Folding Stock', weight: 500, price: 320, lengthAdd: 2.0, recoil: 8, ergo: 10, type: 'Folding', tags: ['Folding', 'Premium'], desc: 'A rigid folding stock with a wide cheek rest and adjustable buttpad.', scores: { reliability: 2 } },
+      { id: 'ak-mft', brand: 'Mission First Tactical', name: 'Battlelink Minimalist', weight: 280, price: 70, lengthAdd: 1.4, recoil: 3, ergo: 7, type: 'Collapsible', tags: ['Light', 'Value'], desc: 'A light collapsible stock that trims weight from the rear of the rifle.', scores: { reliability: 1 } },
+    ],
+    grip: [
+      { id: 'ak-bakelite', brand: 'Izhmash', name: 'Bakelite Grip', weight: 85, price: 30, angle: '15°', tags: ['Classic', 'Bakelite'], desc: 'An original orange bakelite grip with a distinct vintage feel.', ergo: 6, scores: { reliability: 1 } },
+      { id: 'ak-moe-grip', brand: 'Magpul', name: 'MOE AK Grip', weight: 100, price: 25, angle: '15°', tags: ['Value', 'Textured'], desc: 'A comfortable, textured polymer AK grip at a working price.', ergo: 8, scores: { reliability: 1 } },
+      { id: 'ak-bgak', brand: 'TangoDown', name: 'BG-AK Grip', weight: 110, price: 35, angle: '18°', tags: ['Duty'], desc: 'A duty grip with a straighter angle and a reinforced beavertail.', ergo: 9, scores: { reliability: 1 } },
+      { id: 'ak-rk3', brand: 'Zenitco', name: 'RK-3 Grip', weight: 95, price: 75, angle: '20°', tags: ['Premium', 'Textured'], desc: 'A textured, ergonomic Russian-pattern grip with a palm swell.', ergo: 9, scores: { reliability: 1 } },
+    ],
+    trigger: [
+      { id: 'ak-mil', brand: 'Izhmash', name: 'Military Trigger', weight: 90, price: 30, pull: 6.0, tags: ['Standard'], desc: 'A standard AK trigger group: long, heavy, and utterly dependable.', reliability: 0, ergo: 0 },
+      { id: 'ak-alg-akt-el', brand: 'ALG Defense', name: 'AKT-EL Trigger', weight: 100, price: 115, pull: 3.5, tags: ['Single-stage', 'Value'], desc: 'A crisp, short-reset AK trigger that transforms the platform.', reliability: 2, ergo: 12 },
+      { id: 'ak-alg-akt-ul', brand: 'ALG Defense', name: 'AKT-UL Trigger', weight: 100, price: 150, pull: 2.5, tags: ['Match', 'Light'], desc: 'An ultralight match trigger with a clean break and positive reset.', reliability: 1, ergo: 13 },
+      { id: 'ak-cdr', brand: 'Meridian Defense', name: 'CDR Trigger', weight: 95, price: 150, pull: 3.0, tags: ['Tuned', 'Duty'], desc: 'A hand-tuned AK trigger with a smooth take-up and strong reset.', reliability: 2, ergo: 11 },
+    ],
+    optic: [
+      { id: 'ak-iron', brand: 'Izhmash', name: 'Iron Sights', weight: 0, price: 0, type: 'Iron sights', magnification: '1×', footprint: 'Side rail', mount: '—', tags: ['Minimal', 'Classic'], desc: 'Standard AK notch-and-post irons. No batteries required.', ergo: 2, scores: { reliability: 5 } },
+      { id: 'ak-rs-t2', brand: 'RS Regulate', name: 'AK-301M + Aimpoint T-2', weight: 300, price: 960, type: 'Red dot', magnification: '1×', footprint: 'Side rail', mount: 'RS Regulate', tags: ['Duty', 'Low mount'], desc: 'A low side-rail mount paired with the duty-standard micro red dot.', ergo: 9, scores: { reliability: 4 } },
+      { id: 'ak-mi-eotech', brand: 'Midwest Industries', name: 'Gen2 Mount + EOTech', weight: 480, price: 800, type: 'Holographic', magnification: '1×', footprint: 'Side rail', mount: 'MI Gen2', tags: ['Holographic', 'Wide window'], desc: 'A rigid side mount with an EOTech holographic sight for fast work.', ergo: 8, scores: { reliability: 3 } },
+      { id: 'ak-zenit-b13', brand: 'Zenitco', name: 'B-13 + Holosun 403', weight: 340, price: 520, type: 'Red dot', magnification: '1×', footprint: 'Side rail', mount: 'B-13', tags: ['Value', 'Duty'], desc: 'A dust-cover rail and compact red dot combo for modern AK setups.', ergo: 7, scores: { reliability: 2 } },
+      { id: 'ak-pso1', brand: 'NPZ', name: 'PSO-1 4×24', weight: 620, price: 420, type: 'Prism', magnification: '4×', footprint: 'Side rail', mount: 'PSO side mount', tags: ['Classic', '4×'], desc: 'The classic Dragunov-pattern 4× scope with an illuminated reticle.', ergo: 5, scores: { reliability: 3 } },
+    ],
+    magazine: [
+      { id: 'ak-surplus', brand: 'Surplus', name: 'Steel 30-round', weight: 380, price: 25, capacity: 30, calibers: ['7.62x39'], material: 'Stamped steel', tags: ['Steel', 'Classic'], desc: 'A battle-worn steel magazine with ribbed sides and a steel floorplate.', reliability: 2 },
+      { id: 'ak-pmag30', brand: 'Magpul', name: 'PMAG 30 AK/AKM', weight: 250, price: 18, capacity: 30, calibers: ['7.62x39'], material: 'Polymer', tags: ['Polymer', 'Light'], desc: 'A lightweight polymer AK magazine with a reinforced feed-lip design.', reliability: 3 },
+      { id: 'ak-molot40', brand: 'Molot', name: 'RPK-40 Magazine', weight: 520, price: 65, capacity: 40, calibers: ['7.62x39'], material: 'Steel', tags: ['40-round', 'Heavy'], desc: 'A ribbed 40-round RPK magazine that adds serious firepower.', reliability: 2 },
+      { id: 'ak-drum75', brand: 'Romanian', name: '75-round Drum', weight: 1100, price: 160, capacity: 75, calibers: ['7.62x39'], material: 'Steel', tags: ['75-round', 'Very heavy'], desc: 'A top-loading steel drum. Heavy, awkward, and immensely fun.', reliability: 0 },
+      { id: 'ak-acunity', brand: 'AC Unity', name: '30-round Windowed', weight: 240, price: 22, capacity: 30, calibers: ['7.62x39'], material: 'Polymer', tags: ['Windowed', 'Value'], desc: 'A lightweight windowed polymer magazine with a slim profile.', reliability: 2 },
+    ],
+  },
+};

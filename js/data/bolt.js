@@ -1,0 +1,77 @@
+/* Precision bolt-action (R700 footprint) catalog. Specs approximate. */
+
+export const BOLT = {
+  id: 'bolt',
+  name: 'BOLT ACTION',
+  family: 'Remington 700 footprint / .308 Win',
+  tagline: 'One shot, one cold bore.',
+  accent: '#7fb3ff',
+  baseWeight: 900,
+  baseOAL: 14.5,
+  baseCost: 700,
+  baseReliability: 86,
+  caliber: '.308 Winchester',
+  caliberKey: '308',
+  slotOrder: ['chassis', 'barrel', 'muzzle', 'optic', 'bipod', 'trigger', 'magazine'],
+  slots: {
+    chassis: { label: 'Chassis / Stock', short: 'Chassis', hint: 'Bedding, ergonomics & mass' },
+    barrel: { label: 'Match Barrel', short: 'Barrel', hint: 'Length, contour & steel' },
+    muzzle: { label: 'Muzzle Device', short: 'Muzzle', hint: 'Brake or suppressor' },
+    optic: { label: 'Precision Optic', short: 'Optic', hint: 'Magnification & glass' },
+    bipod: { label: 'Bipod', short: 'Bipod', hint: 'Support & stability' },
+    trigger: { label: 'Trigger', short: 'Trigger', hint: 'Pull weight & break' },
+    magazine: { label: 'Magazine', short: 'Mag', hint: 'AICS pattern capacity' },
+  },
+  defaultParts: {
+    chassis: 'mdt-acc', barrel: 'proof-26', muzzle: 'a419-hellfire-bolt', optic: 'vortex-razor-6-36',
+    bipod: 'atlas-bt65', trigger: 'triggertech-diamond', magazine: 'mdt-10rd',
+  },
+  parts: {
+    chassis: [
+      { id: 'mdt-acc', brand: 'MDT', name: 'ACC Elite Chassis', weight: 1500, price: 1600, material: '6061-T6', finish: 'Cerakote', ergo: 12, recoil: 14, bipodReady: true, tags: ['Competition', 'M-LOK'], desc: 'A full-weight competition chassis with adjustable everything and a rigid fore-end.', scores: { reliability: 3 } },
+      { id: 'krg-bravo', brand: 'KRG', name: 'Bravo Chassis', weight: 1200, price: 430, material: 'Polymer / aluminum', finish: 'Molded', ergo: 9, recoil: 10, bipodReady: true, tags: ['Value', 'Ergonomic'], desc: 'A comfortable, affordable chassis with a tool-less cheek riser.', scores: { reliability: 2 } },
+      { id: 'manners-prs', brand: 'Manners', name: 'PRS-TCS Stock', weight: 1400, price: 1550, material: 'Carbon / fiberglass', finish: 'Elite', ergo: 11, recoil: 12, bipodReady: true, tags: ['Carbon', 'PRS'], desc: 'A hand-finished competition stock with a weighted, dead-feeling bedding block.', scores: { reliability: 3 } },
+      { id: 'magpul-hunter', brand: 'Magpul', name: 'Hunter 700 Stock', weight: 900, price: 280, material: 'Polymer', finish: 'Molded', ergo: 7, recoil: 7, bipodReady: true, tags: ['Budget', 'Light'], desc: 'A durable polymer stock with aluminum bedding blocks for the R700 action.', scores: { reliability: 1 } },
+      { id: 'mdt-xrs', brand: 'MDT', name: 'XRS Chassis', weight: 1100, price: 500, material: 'Aluminum / polymer', finish: 'Cerakote', ergo: 9, recoil: 9, bipodReady: true, tags: ['Value', 'Hybrid'], desc: 'A hybrid chassis with a polymer grip and an aluminum fore-end.', scores: { reliability: 2 } },
+    ],
+    barrel: [
+      { id: 'proof-26', brand: 'Proof Research', name: '26" Carbon Sendero', weight: 1000, price: 1150, caliber: '308', length: 26, thread: '5/8x24', material: 'Carbon fiber', finish: 'Carbon', contour: 'Sendero Light', tags: ['Carbon', 'Light'], desc: 'A carbon-wrapped 26-inch match barrel that keeps weight down and stiffness up.', scores: { reliability: 2, ergo: 2 } },
+      { id: 'bartlein-24', brand: 'Bartlein', name: '24" MTU Contour', weight: 1500, price: 750, caliber: '308', length: 24, thread: '5/8x24', material: '416R Stainless', finish: 'Bead blast', contour: 'MTU', tags: ['Heavy', 'Match'], desc: 'A heavy MTU contour blank for repeatable long-range strings.', scores: { reliability: 3, ergo: -2 } },
+      { id: 'criterion-22', brand: 'Criterion', name: '22" Match', weight: 1200, price: 400, caliber: '308', length: 22, thread: '5/8x24', material: '416R Stainless', finish: 'Hand-lapped', contour: 'Medium Palma', tags: ['Value', 'Match'], desc: 'A hand-lapped button-rifled barrel with an excellent price-to-accuracy ratio.', scores: { reliability: 2, ergo: 1 } },
+      { id: 'proof-20', brand: 'Proof Research', name: '20" Carbon', weight: 900, price: 1050, caliber: '308', length: 20, thread: '5/8x24', material: 'Carbon fiber', finish: 'Carbon', contour: 'Sendero', tags: ['Compact', 'Hunting'], desc: 'A shorter carbon barrel for a compact, suppressor-ready hunting rifle.', scores: { reliability: 2, ergo: 3 } },
+      { id: 'lilja-26', brand: 'Lilja', name: '26" Heavy Varmint', weight: 1400, price: 900, caliber: '308', length: 26, thread: '5/8x24', material: '416R Stainless', finish: 'Polished', contour: 'Heavy Varmint', tags: ['Long', 'Heavy'], desc: 'A long, stiff varmint contour for maximum velocity and stability.', scores: { reliability: 2, ergo: -1 } },
+    ],
+    muzzle: [
+      { id: 'a419-hellfire-bolt', brand: 'Area 419', name: 'Hellfire Match', weight: 120, price: 190, length: 2.9, thread: '5/8x24', calibers: ['308'], recoil: 44, flash: 55, noise: 0, tags: ['Brake', 'Match'], desc: 'The benchmark precision brake, with a self-timing taper mount.', scores: { reliability: 1 } },
+      { id: 'apa-bastard', brand: 'APA', name: 'Little Bastard', weight: 130, price: 150, length: 2.7, thread: '5/8x24', calibers: ['308'], recoil: 40, flash: 50, noise: 0, tags: ['Brake', 'Tunable'], desc: 'A tunable-port brake that can be timed to the shooter and position.', scores: { reliability: 1 } },
+      { id: 'tbac-ultra9', brand: 'Thunder Beast', name: 'Ultra 9 .30', weight: 400, price: 1200, length: 9.0, thread: '5/8x24', calibers: ['308'], recoil: 28, flash: 95, suppression: 34, nfa: true, tags: ['Suppressor', 'NFA'], desc: 'A lightweight precision suppressor with class-leading repeatability.', scores: { reliability: 0 } },
+      { id: 'deadair-nomad', brand: 'Dead Air', name: 'Nomad-L', weight: 420, price: 1100, length: 8.4, thread: '5/8x24', calibers: ['308'], recoil: 26, flash: 96, suppression: 33, nfa: true, tags: ['Suppressor', 'NFA'], desc: 'A long .30 caliber can that prioritizes quiet over compactness.', scores: { reliability: 0 } },
+      { id: 'thread-protector', brand: 'Ironforge', name: 'Thread Protector', weight: 20, price: 20, length: 0.6, thread: '5/8x24', calibers: ['308'], recoil: 0, flash: 0, noise: 0, tags: ['Bare', 'Light'], desc: 'A knurled thread protector for a clean, bare-muzzle precision rifle.', scores: { reliability: 0 } },
+    ],
+    optic: [
+      { id: 'vortex-razor-6-36', brand: 'Vortex', name: 'Razor HD Gen III 6-36×56', weight: 1300, price: 2500, type: 'Precision scope', magnification: '6–36×', footprint: 'Picatinny', mount: '34mm rings', tags: ['34mm', 'PRS'], desc: 'A top-tier 6-36× scope with a wide field of view and forgiving eye box.', ergo: 12, scores: { reliability: 3 } },
+      { id: 'nf-atacr', brand: 'Nightforce', name: 'ATACR 7-35×56', weight: 1100, price: 3200, type: 'Precision scope', magnification: '7–35×', footprint: 'Picatinny', mount: '34mm rings', tags: ['Duty', 'Edge clarity'], desc: 'A bomb-proof 7-35× optic with legendary mechanical repeatability.', ergo: 11, scores: { reliability: 4 } },
+      { id: 'leupold-mark5', brand: 'Leupold', name: 'Mark 5HD 5-25×56', weight: 850, price: 2200, type: 'Precision scope', magnification: '5–25×', footprint: 'Picatinny', mount: '35mm rings', tags: ['Light', 'Hunting'], desc: 'A lightweight 5-25× scope with excellent glass for its mass.', ergo: 10, scores: { reliability: 3 } },
+      { id: 'bushnell-matchpro', brand: 'Bushnell', name: 'Match Pro ED 5-30×56', weight: 900, price: 800, type: 'Precision scope', magnification: '5–30×', footprint: 'Picatinny', mount: '34mm rings', tags: ['Value', 'ED glass'], desc: 'A value-priced 5-30× with ED glass and a zero-stop elevation turret.', ergo: 9, scores: { reliability: 2 } },
+      { id: 'bolt-iron', brand: 'Remington', name: 'Bare Action', weight: 0, price: 0, type: 'None', magnification: '—', footprint: 'Picatinny', mount: '—', tags: ['Minimal'], desc: 'No optic mounted. A bare receiver and a lot of confidence.', ergo: 0, scores: { reliability: 0 } },
+    ],
+    bipod: [
+      { id: 'atlas-bt65', brand: 'Atlas', name: 'BT65-LW17', weight: 400, price: 350, height: '5.1–9.1 in', cant: true, tags: ['Pan / cant', 'Premium'], desc: 'A rugged quick-detach bipod with pan, cant and five leg positions.', scores: { reliability: 4 } },
+      { id: 'harris-sbrm', brand: 'Harris', name: 'S-BRM 6-9"', weight: 350, price: 130, height: '6–9 in', cant: false, tags: ['Value', 'Proven'], desc: 'The classic Harris bench bipod with spring-loaded legs and a swivel stud mount.', scores: { reliability: 3 } },
+      { id: 'mdt-ckye', brand: 'MDT', name: 'Ckye-Pod Gen2', weight: 500, price: 600, height: '5.5–15 in', cant: true, tags: ['PRS', 'Adjustable'], desc: 'A competition bipod with a huge adjustment range and quick-deploy legs.', scores: { reliability: 3 } },
+      { id: 'no-bipod', brand: 'Ironforge', name: 'No Bipod', weight: 0, price: 0, height: '—', cant: false, tags: ['Minimal'], desc: 'No bipod. Shoot from a pack, a bag, or a barricade.', scores: { reliability: 0 } },
+    ],
+    trigger: [
+      { id: 'triggertech-diamond', brand: 'TriggerTech', name: 'Diamond 2-Stage', weight: 80, price: 300, pull: 1.5, tags: ['2-stage', 'Match'], desc: 'A frictionless two-stage trigger with an exceptionally clean break.', reliability: 3, ergo: 14 },
+      { id: 'timney-elite', brand: 'Timney', name: 'Elite Hunter', weight: 90, price: 250, pull: 2.0, tags: ['Single-stage', 'Hunting'], desc: 'A crisp single-stage hunting trigger with a safe, positive sear.', reliability: 2, ergo: 12 },
+      { id: 'jewell-hvr', brand: 'Jewell', name: 'HVR Match', weight: 85, price: 280, pull: 1.5, tags: ['Match', 'Adjustable'], desc: 'A fully adjustable match trigger with a reputation for a glassy break.', reliability: 3, ergo: 13 },
+      { id: 'r700-stock', brand: 'Remington', name: 'Stock Trigger', weight: 90, price: 0, pull: 4.5, tags: ['Standard'], desc: 'The factory trigger. Serviceable, but not why you build a precision rifle.', reliability: 0, ergo: 0 },
+    ],
+    magazine: [
+      { id: 'mdt-10rd', brand: 'MDT', name: 'AICS 10-round', weight: 220, price: 85, capacity: 10, calibers: ['308'], material: 'Steel', tags: ['AICS', 'PRS'], desc: 'A smooth-running steel AICS-pattern magazine with a polymer follower.', reliability: 3 },
+      { id: 'magpul-aics10', brand: 'Magpul', name: 'PMAG AICS 10', weight: 180, price: 45, capacity: 10, calibers: ['308'], material: 'Polymer', tags: ['AICS', 'Light'], desc: 'A lightweight polymer AICS magazine with a low-friction follower.', reliability: 2 },
+      { id: 'magpul-aics5', brand: 'Magpul', name: 'PMAG AICS 5', weight: 150, price: 40, capacity: 5, calibers: ['308'], material: 'Polymer', tags: ['AICS', 'Hunting'], desc: 'A flush-fitting five-round magazine for hunting and field carry.', reliability: 2 },
+      { id: 'mdt-12rd', brand: 'MDT', name: 'AICS 12-round', weight: 240, price: 95, capacity: 12, calibers: ['308'], material: 'Steel', tags: ['AICS', 'High capacity'], desc: 'An extended 12-round steel magazine for high-round-count stages.', reliability: 2 },
+    ],
+  },
+};

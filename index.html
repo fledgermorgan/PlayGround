@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0d10" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2 29 9.5v13L16 30 3 22.5v-13L16 2Z' fill='none' stroke='%23ff5c1a' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='16' r='6' fill='none' stroke='%23ff5c1a' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='16' r='2' fill='%23ff5c1a'/%3E%3C/svg%3E" />
+  <title>IRONFORGE — Real-World Firearm Configurator</title>
+  <meta name="description" content="Build and customize AR-15, AKM, precision bolt-action and duty pistol platforms from a catalog of real-world parts." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three.module.js" } }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none">
+            <path d="M16 2 29 9.5v13L16 30 3 22.5v-13L16 2Z" stroke="currentColor" stroke-width="1.3"/>
+            <circle cx="16" cy="16" r="7.2" stroke="currentColor" stroke-width="1.3"/>
+            <circle cx="16" cy="16" r="2" fill="currentColor"/>
+            <path d="M16 3v6M16 23v6M4.5 10.3l5.2 3M22.3 18.7l5.2 3M4.5 21.7l5.2-3M22.3 13.3l5.2-3" stroke="currentColor" stroke-width="1.1"/>
+          </svg>
+        </div>
+        <div class="brand-copy">
+          <span class="brand-title">IRONFORGE</span>
+          <span class="brand-sub">REAL-WORLD FIREARM CONFIGURATOR</span>
+        </div>
+      </div>
+
+      <nav class="platform-tabs" id="platformTabs" aria-label="Platform"></nav>
+
+      <div class="top-actions">
+        <button class="btn ghost" id="presetBtn" type="button">
+          <svg viewBox="0 0 16 16"><path d="M3 4h10M3 8h10M3 12h6" /></svg>
+          PRESETS
+        </button>
+        <button class="btn ghost" id="randomBtn" type="button">
+          <svg viewBox="0 0 16 16"><path d="M2 5h2.5L13 12h1M2 12h2.5L13 5h1M11 3l2 2-2 2M11 10l2 2-2 2" /></svg>
+          RANDOM
+        </button>
+        <button class="btn ghost" id="saveBtn" type="button">
+          <svg viewBox="0 0 16 16"><path d="M3 2h8l2 2v10H3V2Z"/><path d="M5 2v4h6V2M5 14v-4h6v4"/></svg>
+          SAVE
+        </button>
+        <button class="btn primary" id="shareBtn" type="button">
+          <svg viewBox="0 0 16 16"><path d="M8 2v8M5 5l3-3 3 3M3 10v4h10v-4"/></svg>
+          SHARE BUILD
+        </button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="panel build-panel" id="buildPanel">
+        <div class="panel-head">
+          <div class="build-id">
+            <span class="eyebrow">ACTIVE BUILD</span>
+            <input id="buildName" value="M4A1 // CUSTOM" maxlength="28" spellcheck="false" aria-label="Build name" />
+          </div>
+          <button class="icon-btn" id="resetBtn" title="Reset to platform default" type="button">
+            <svg viewBox="0 0 18 18"><path d="M4 6a6 6 0 1 1-1 5M4 2v4h4"/></svg>
+          </button>
+          <button class="icon-btn mobile-close" data-close-panel type="button" aria-label="Close panel">
+            <svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4 4 14"/></svg>
+          </button>
+        </div>
+
+        <div class="score-card">
+          <div class="score-ring" id="scoreRing">
+            <svg viewBox="0 0 84 84">
+              <circle class="ring-bg" cx="42" cy="42" r="35"></circle>
+              <circle class="ring-fg" id="scoreArc" cx="42" cy="42" r="35"></circle>
+            </svg>
+            <span id="scoreGrade">A</span>
+          </div>
+          <div class="score-copy">
+            <span class="eyebrow">BUILD RATING</span>
+            <div class="score-line"><strong id="scoreValue">86</strong><span>/100</span></div>
+            <span class="score-label" id="scoreLabel">COMBAT READY</span>
+          </div>
+          <div class="score-meta">
+            <span id="costChip">$3.4K</span>
+            <span id="weightChip">3.6 KG</span>
+            <span id="metaChip">5.56</span>
+          </div>
+        </div>
+
+        <div class="slots-head">
+          <span>COMPONENTS</span>
+          <span id="slotProgress">12 / 12</span>
+        </div>
+        <div class="slot-list" id="slotList"></div>
+
+        <div class="panel-foot">
+          <div class="foot-head">
+            <span class="eyebrow">PLATFORM PRESETS</span>
+            <span class="foot-hint">ONE-TAP LOADOUTS</span>
+          </div>
+          <div class="preset-grid" id="presetGrid"></div>
+          <div class="build-serial">
+            <span>BUILD ID</span>
+            <code id="buildSerial">IF-AR15-0000</code>
+          </div>
+        </div>
+      </aside>
+
+      <section class="stage" id="stage">
+        <canvas id="scene"></canvas>
+        <div class="stage-vignette"></div>
+        <div class="stage-grain"></div>
+
+        <div class="stage-overlay">
+          <div class="stage-head">
+            <div class="stage-title">
+              <div class="eyebrow stage-kicker">PLATFORM // <span id="platformCode">AR-15</span> <span class="kicker-rule"></span> <span id="platformFamily">DIRECT IMPINGEMENT</span></div>
+              <h1 id="platformName">AR-15</h1>
+              <p id="platformTagline">The modular American standard.</p>
+            </div>
+            <div class="live-pill"><i></i> LIVE CONFIG <span id="fpsBadge">3D</span></div>
+          </div>
+
+          <div class="stage-ghost" id="stageGhost">01</div>
+
+          <div class="view-tools" id="viewTools">
+            <button data-view="iso" class="active" title="Isometric view" type="button">ISO</button>
+            <button data-view="side" title="Side view" type="button">SIDE</button>
+            <button data-view="top" title="Top view" type="button">TOP</button>
+            <button data-view="front" title="Front view" type="button">FRONT</button>
+          </div>
+
+          <div class="quick-readout" id="quickReadout">
+            <div><span>MASS</span><strong id="qWeight">3.42 kg</strong></div>
+            <div><span>OAL</span><strong id="qOal">32.5 in</strong></div>
+            <div><span>MUZZLE</span><strong id="qVel">2,800 fps</strong></div>
+          </div>
+
+          <div class="stage-bottom">
+            <div class="finish-dock">
+              <div class="dock-head"><span class="eyebrow">CERAKOTE FINISH</span><span id="finishName">Armor Black</span></div>
+              <div class="swatch-row" id="finishSwatches"></div>
+            </div>
+            <div class="stage-controls">
+              <button id="explodeBtn" type="button" title="Exploded view">
+                <svg viewBox="0 0 18 18"><path d="M9 2v4M9 12v4M2 9h4M12 9h4M4 4l2.5 2.5M14 14l-2.5-2.5M14 4l-2.5 2.5M4 14l2.5-2.5"/></svg>
+                EXPLODE
+              </button>
+              <button id="spinBtn" type="button" title="Toggle auto orbit">
+                <svg viewBox="0 0 18 18"><path d="M14 7a5.5 5.5 0 1 0 .5 4M14 3v4h-4"/></svg>
+                ORBIT
+              </button>
+              <button id="captureBtn" type="button" title="Capture PNG">
+                <svg viewBox="0 0 18 18"><path d="M3 5h3l1.5-2h3L12 5h3v9H3V5Z"/><circle cx="9" cy="9.5" r="2.6"/></svg>
+                PNG
+              </button>
+            </div>
+          </div>
+
+          <div class="stage-corners" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          <div class="interaction-tip" id="interactionTip">DRAG TO ORBIT · CLICK A PART TO MODIFY</div>
+        </div>
+
+        <div class="loading" id="loading">
+          <div class="loader">
+            <svg viewBox="0 0 80 80"><circle class="l-bg" cx="40" cy="40" r="32"/><circle class="l-fg" cx="40" cy="40" r="32"/></svg>
+            <span>01</span>
+          </div>
+          <div class="loading-copy">
+            <strong>CALIBRATING OPTICS</strong>
+            <span>ASSEMBLING REAL-WORLD COMPONENTS</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="panel telemetry" id="telemetry">
+        <div class="panel-head">
+          <div class="build-id">
+            <span class="eyebrow">LIVE TELEMETRY</span>
+            <span class="telemetry-platform" id="telemetryPlatform">AR-15 PLATFORM</span>
+          </div>
+          <span class="live-dot" title="Live data"></span>
+          <button class="icon-btn mobile-close" data-close-panel type="button" aria-label="Close panel">
+            <svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4 4 14"/></svg>
+          </button>
+        </div>
+
+        <section class="perf-block">
+          <div class="block-head"><h3>PERFORMANCE</h3><span class="mono">LIVE</span></div>
+          <div class="metric" data-metric="recoil">
+            <div class="metric-top"><span>RECOIL CONTROL</span><b id="metricRecoil">72</b></div>
+            <div class="metric-track"><i id="barRecoil"></i></div>
+          </div>
+          <div class="metric" data-metric="reliability">
+            <div class="metric-top"><span>RELIABILITY</span><b id="metricReliability">94</b></div>
+            <div class="metric-track"><i id="barReliability"></i></div>
+          </div>
+          <div class="metric" data-metric="ergo">
+            <div class="metric-top"><span>ERGONOMICS</span><b id="metricErgo">88</b></div>
+            <div class="metric-track"><i id="barErgo"></i></div>
+          </div>
+          <div class="metric" data-metric="balance">
+            <div class="metric-top"><span>BALANCE SCORE</span><b id="metricBalance">91</b></div>
+            <div class="metric-track"><i id="barBalance"></i></div>
+          </div>
+        </section>
+
+        <section class="data-grid">
+          <div><span>MASS</span><strong id="dataWeight">3.60 kg</strong><em id="dataWeightLb">7.94 lb</em></div>
+          <div><span>OAL</span><strong id="dataOal">32.5 in</strong><em id="dataOalMm">826 mm</em></div>
+          <div><span>BARREL</span><strong id="dataBarrel">16.0 in</strong><em id="dataCaliber">5.56 NATO</em></div>
+          <div><span>VELOCITY</span><strong id="dataVel">2,800 fps</strong><em id="dataEnergy">1,290 ft-lb</em></div>
+          <div><span>CAPACITY</span><strong id="dataCap">30 + 1</strong><em id="dataAction">SEMI AUTO</em></div>
+          <div><span>BUILD COST</span><strong id="dataCost">$3,420</strong><em id="dataCostNote">PARTS + BASE</em></div>
+        </section>
+
+        <section class="balance-block">
+          <div class="block-head"><h3>BALANCE</h3><span id="balanceText" class="mono">52% FRONT</span></div>
+          <div class="balance-bar">
+            <div class="balance-neutral"></div>
+            <i id="balanceMarker" style="left:52%"></i>
+          </div>
+          <div class="balance-scale"><span>REAR</span><span>NEUTRAL</span><span>FRONT</span></div>
+        </section>
+
+        <section class="issues-block">
+          <div class="block-head"><h3>FIT &amp; COMPLIANCE</h3><span id="issueCount" class="issue-count">0</span></div>
+          <div class="issue-list" id="issueList"></div>
+        </section>
+
+        <section class="notes-block">
+          <div class="block-head"><h3>FIELD NOTES</h3><span class="mono">AUTO</span></div>
+          <p id="buildNote">Assembling configuration data…</p>
+        </section>
+
+        <div class="disclaimer">
+          <strong>VIRTUAL CONCEPT BUILDER</strong>
+          <span>Part specs are approximate. Not affiliated with any manufacturer. Firearm laws vary — verify local, state and federal rules before building. Nothing here is legal advice.</span>
+        </div>
+      </aside>
+    </main>
+
+    <nav class="mobile-bar" id="mobileBar">
+      <button id="mParts" type="button"><svg viewBox="0 0 20 20"><path d="M3 5h14M3 10h14M3 15h9"/></svg><span>PARTS</span></button>
+      <button id="mStats" type="button"><svg viewBox="0 0 20 20"><path d="M4 16V9M10 16V4M16 16v-5"/></svg><span>STATS</span></button>
+      <button id="mFinish" type="button"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7"/><path d="M10 3v14"/></svg><span>FINISH</span></button>
+      <button id="mRandom" type="button"><svg viewBox="0 0 20 20"><path d="M3 6h3l8 8h3M3 14h3l8-8h3M14 4l3 2-3 2M14 12l3 2-3 2"/></svg><span>RANDOM</span></button>
+    </nav>
+  </div>
+
+  <div class="modal" id="picker" hidden>
+    <div class="picker-backdrop" data-close-picker></div>
+    <div class="picker-panel" role="dialog" aria-modal="true" aria-labelledby="pickerTitle">
+      <header class="picker-head">
+        <div class="picker-heading">
+          <span class="eyebrow">SELECT COMPONENT // <span id="pickerSlotCode">BARREL</span></span>
+          <h2 id="pickerTitle">Barrel</h2>
+          <p id="pickerSub">Choose a real-world component. Incompatible parts are flagged before you commit.</p>
+        </div>
+        <div class="picker-head-right">
+          <span id="pickerCount" class="picker-count">7 OPTIONS</span>
+          <button class="icon-btn" id="pickerClose" type="button" aria-label="Close">
+            <svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4 4 14"/></svg>
+          </button>
+        </div>
+      </header>
+      <div class="picker-tools">
+        <label class="search-wrap">
+          <svg viewBox="0 0 18 18"><circle cx="8" cy="8" r="5"/><path d="m12 12 3.5 3.5"/></svg>
+          <input id="pickerSearch" type="search" placeholder="Search brand, model or spec…" autocomplete="off" />
+        </label>
+        <label class="select-wrap">
+          <span>SORT</span>
+          <select id="pickerSort">
+            <option value="recommended">RECOMMENDED</option>
+            <option value="price">LOWEST PRICE</option>
+            <option value="weight">LOWEST WEIGHT</option>
+            <option value="name">A–Z</option>
+          </select>
+        </label>
+        <label class="toggle-wrap">
+          <input id="pickerCompat" type="checkbox" checked />
+          <span class="switch-track"><i></i></span>
+          <span>COMPATIBLE ONLY</span>
+        </label>
+      </div>
+      <div class="picker-grid" id="pickerGrid"></div>
+      <footer class="picker-foot">
+        <div class="picker-summary" id="pickerSummary">Browse the catalog — specs update live.</div>
+        <span class="picker-legal">REAL-WORLD CATALOG · APPROXIMATE SPECS · VISUAL CONFIGURATOR ONLY</span>
+      </footer>
+    </div>
+  </div>
+
+  <div class="tooltip" id="tooltip" hidden></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
